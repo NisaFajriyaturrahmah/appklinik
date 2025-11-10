@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>800</width>
+    <height>600</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QWidget" name="formLayoutWidget">
+    <property name="geometry">
+     <rect>
+      <x>90</x>
+      <y>10</y>
+      <width>160</width>
+      <height>182</height>
+     </rect>
+    </property>
+    <layout class="QFormLayout" name="formLayout">
+     <item row="0" column="0">
+      <widget class="QLabel" name="nomor_rmLabel">
+       <property name="text">
+        <string>nomor_rm</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="1">
+      <widget class="QLineEdit" name="nomor_rmLineEdit"/>
+     </item>
+     <item row="1" column="0">
+      <widget class="QLabel" name="nama_pasienLabel">
+       <property name="text">
+        <string>nama_pasien</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="1">
+      <widget class="QLineEdit" name="nama_pasienLineEdit"/>
+     </item>
+     <item row="2" column="0">
+      <widget class="QLabel" name="no_identitasLabel">
+       <property name="text">
+        <string>no_identitas</string>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="1">
+      <widget class="QLineEdit" name="no_identitasLineEdit"/>
+     </item>
+     <item row="3" column="0">
+      <widget class="QLabel" name="jenis_kelaminLabel">
+       <property name="text">
+        <string>jenis_kelamin</string>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="1">
+      <widget class="QComboBox" name="jenis_kelaminComboBox"/>
+     </item>
+     <item row="4" column="0">
+      <widget class="QLabel" name="golongan_darahLabel">
+       <property name="text">
+        <string>golongan_darah</string>
+       </property>
+      </widget>
+     </item>
+     <item row="4" column="1">
+      <widget class="QComboBox" name="golongan_darahComboBox"/>
+     </item>
+     <item row="5" column="0">
+      <widget class="QLabel" name="tempat_lahirLabel">
+       <property name="text">
+        <string>tempat_lahir</string>
+       </property>
+      </widget>
+     </item>
+     <item row="5" column="1">
+      <widget class="QLineEdit" name="tempat_lahirLineEdit"/>
+     </item>
+     <item row="6" column="0">
+      <widget class="QLabel" name="no_teleponLabel">
+       <property name="text">
+        <string>no_telepon</string>
+       </property>
+      </widget>
+     </item>
+     <item row="6" column="1">
+      <widget class="QLineEdit" name="no_teleponLineEdit"/>
+     </item>
+     <item row="7" column="0">
+      <widget class="QLabel" name="alamatLabel">
+       <property name="text">
+        <string>alamat</string>
+       </property>
+      </widget>
+     </item>
+     <item row="7" column="1">
+      <widget class="QLineEdit" name="alamatLineEdit"/>
+     </item>
+    </layout>
+   </widget>
+   <widget class="QTableWidget" name="tableWidget">
+    <property name="geometry">
+     <rect>
+      <x>50</x>
+      <y>230</y>
+      <width>256</width>
+      <height>81</height>
+     </rect>
+    </property>
+    <column>
+     <property name="text">
+      <string>nomor_rm</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>nama_pasien</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>no_identitas</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>jenis_kelamin</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>golongan_darah</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>tempat_lahir</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>no_telepon</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>alamat</string>
+     </property>
+    </column>
+   </widget>
+   <widget class="QPushButton" name="pushButton">
+    <property name="geometry">
+     <rect>
+      <x>70</x>
+      <y>200</y>
+      <width>56</width>
+      <height>18</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Simpan</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton_2">
+    <property name="geometry">
+     <rect>
+      <x>150</x>
+      <y>200</y>
+      <width>56</width>
+      <height>18</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Ubah</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton_3">
+    <property name="geometry">
+     <rect>
+      <x>230</x>
+      <y>200</y>
+      <width>56</width>
+      <height>18</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Hapus</string>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>800</width>
+     <height>18</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

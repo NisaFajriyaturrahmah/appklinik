@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>main</class>
+ <widget class="QMainWindow" name="main">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>800</width>
+    <height>600</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>main</string>
+  </property>
+  <widget class="QWidget" name="centralwidget"/>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>800</width>
+     <height>18</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuHalaman_Menu">
+    <property name="title">
+     <string>Halaman Menu</string>
+    </property>
+    <addaction name="actionForm_Dokter"/>
+    <addaction name="actionForm_Pasien"/>
+    <addaction name="actionForm_Petugas"/>
+    <addaction name="actionForm_Obat"/>
+    <addaction name="actionFrom_Pendaftaran"/>
+   </widget>
+   <addaction name="menuHalaman_Menu"/>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+  <action name="actionForm_Dokter">
+   <property name="text">
+    <string>Form Dokter</string>
+   </property>
+  </action>
+  <action name="actionForm_Pasien">
+   <property name="text">
+    <string>Form Pasien</string>
+   </property>
+  </action>
+  <action name="actionForm_Petugas">
+   <property name="text">
+    <string>Form Petugas</string>
+   </property>
+  </action>
+  <action name="actionForm_Obat">
+   <property name="text">
+    <string>Form Obat</string>
+   </property>
+  </action>
+  <action name="actionFrom_Pendaftaran">
+   <property name="text">
+    <string>From Pendaftaran</string>
+   </property>
+  </action>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

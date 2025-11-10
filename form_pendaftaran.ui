@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>800</width>
+    <height>600</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QWidget" name="formLayoutWidget">
+    <property name="geometry">
+     <rect>
+      <x>90</x>
+      <y>10</y>
+      <width>160</width>
+      <height>159</height>
+     </rect>
+    </property>
+    <layout class="QFormLayout" name="formLayout">
+     <item row="0" column="0">
+      <widget class="QLabel" name="no_daftarLabel">
+       <property name="text">
+        <string>no_daftar</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="1">
+      <widget class="QLineEdit" name="no_daftarLineEdit"/>
+     </item>
+     <item row="1" column="0">
+      <widget class="QLabel" name="nomor_rmLabel">
+       <property name="text">
+        <string>nomor_rm</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="1">
+      <widget class="QLineEdit" name="nomor_rmLineEdit"/>
+     </item>
+     <item row="2" column="0">
+      <widget class="QLabel" name="tanggal_daftarLabel">
+       <property name="text">
+        <string>tanggal_daftar</string>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="1">
+      <widget class="QDateEdit" name="tanggal_daftarDateEdit"/>
+     </item>
+     <item row="3" column="0">
+      <widget class="QLabel" name="tanggal_janjiLabel">
+       <property name="text">
+        <string>tanggal_janji</string>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="1">
+      <widget class="QDateEdit" name="tanggal_janjiDateEdit"/>
+     </item>
+     <item row="4" column="0">
+      <widget class="QLabel" name="jam_janjiLabel">
+       <property name="text">
+        <string>jam_janji</string>
+       </property>
+      </widget>
+     </item>
+     <item row="4" column="1">
+      <widget class="QTimeEdit" name="jam_janjiTimeEdit"/>
+     </item>
+     <item row="5" column="0">
+      <widget class="QLabel" name="keluhanLabel">
+       <property name="text">
+        <string>keluhan</string>
+       </property>
+      </widget>
+     </item>
+     <item row="5" column="1">
+      <widget class="QLineEdit" name="keluhanLineEdit"/>
+     </item>
+     <item row="6" column="0">
+      <widget class="QLabel" name="kd_petugasLabel">
+       <property name="text">
+        <string>kd_petugas</string>
+       </property>
+      </widget>
+     </item>
+     <item row="6" column="1">
+      <widget class="QLineEdit" name="kd_petugasLineEdit"/>
+     </item>
+    </layout>
+   </widget>
+   <widget class="QTableWidget" name="tableWidget">
+    <property name="geometry">
+     <rect>
+      <x>40</x>
+      <y>200</y>
+      <width>256</width>
+      <height>91</height>
+     </rect>
+    </property>
+    <column>
+     <property name="text">
+      <string>no_daftar</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>nomor_rm</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>tanggal_daftar</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>tanggal_janji</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>jam_janji</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>keluhan</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>kd_petugas</string>
+     </property>
+    </column>
+   </widget>
+   <widget class="QPushButton" name="pushButton">
+    <property name="geometry">
+     <rect>
+      <x>70</x>
+      <y>180</y>
+      <width>56</width>
+      <height>18</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Simpan</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton_2">
+    <property name="geometry">
+     <rect>
+      <x>150</x>
+      <y>180</y>
+      <width>56</width>
+      <height>18</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Ubah</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton_3">
+    <property name="geometry">
+     <rect>
+      <x>230</x>
+      <y>180</y>
+      <width>56</width>
+      <height>18</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Hapus</string>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>800</width>
+     <height>18</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
