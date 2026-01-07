@@ -1,10 +1,11 @@
 # -*- coding: utf-8 -*-
 import sys
-from PySide6.QtWidgets import QMainWindow, QMessageBox, QTableWidgetItem
+from PySide6.QtWidgets import QMainWindow, QMessageBox, QTableWidgetItem, QWidget, QFileDialog
 from PySide6.QtCore import QFile
 from PySide6.QtUiTools import QUiLoader
+from fpdf import FPDF
 
-from db import DB # Memastikan impor dari db.py
+from db import DB
 
 class FormObat(QMainWindow):
     def __init__(self, parent=None):
@@ -23,109 +24,129 @@ class FormObat(QMainWindow):
             print("Gagal memuat UI obat")
             sys.exit(-1)
 
+        for widget in self.ui.findChildren(QWidget):
+            if widget.objectName():
+                setattr(self, widget.objectName(), widget)
+
         self.setCentralWidget(self.ui.centralwidget)
         self.resize(self.ui.size())
         self.setWindowTitle("Form Data Obat")
-
         self.db = DB()
 
-        self.ui.pushButton.clicked.connect(self.simpan)
-        self.ui.pushButton_2.clicked.connect(self.ubah)
-        self.ui.pushButton_3.clicked.connect(self.hapus)
+        self.pushButton.clicked.connect(self.simpan_obat)
+        self.pushButton_2.clicked.connect(self.ubah_obat)
+        self.pushButton_3.clicked.connect(self.hapus_obat)
 
-        self.ui.tableWidget.cellClicked.connect(self.ambil_data_dari_tabel)
+        if hasattr(self, 'lineCari'):
+            self.lineCari.textChanged.connect(self.filter_obat)
+        if hasattr(self, 'btnCetak'):
+            self.btnCetak.clicked.connect(self.cetak_pdf)
+
+        self.tableWidget.cellClicked.connect(self.tabel_diklik)
 
         self.load_data()
 
-
     def load_data(self):
-        data_obat = self.db.ambilSemuaObat()
+        data = self.db.ambilSemuaObat()
+        self.tampilkan_data_ke_tabel(data)
 
-        self.ui.tableWidget.setRowCount(len(data_obat))
+    def tampilkan_data_ke_tabel(self, data):
+        self.tableWidget.setRowCount(len(data))
+        for row_idx, row_data in enumerate(data):
+            for col_idx, value in enumerate(row_data):
+                self.tableWidget.setItem(row_idx, col_idx, QTableWidgetItem(str(value)))
 
-        for row, data in enumerate(data_obat):
-            for col, item in enumerate(data):
-                # Data urutan: kd_obat, nama_obat, harga, stok, keterangan
-                self.ui.tableWidget.setItem(row, col, QTableWidgetItem(str(item)))
+    def filter_obat(self):
+        keyword = self.lineCari.text()
+        data = self.db.cariObat(keyword)
+        self.tampilkan_data_ke_tabel(data)
 
-    def ambil_data_dari_tabel(self, row, column):
-        try:
-            kd_obat = self.ui.tableWidget.item(row, 0).text()
-            nama_obat = self.ui.tableWidget.item(row, 1).text()
-            harga = self.ui.tableWidget.item(row, 2).text()
-            stok = self.ui.tableWidget.item(row, 3).text()
-            keterangan = self.ui.tableWidget.item(row, 4).text()
-
-            self.ui.kd_obatLineEdit.setText(kd_obat)
-            self.ui.nama_obatLineEdit.setText(nama_obat)
-            self.ui.hargaLineEdit.setText(harga)
-            self.ui.stokLineEdit.setText(stok)
-            self.ui.keteranganLineEdit.setText(keterangan)
-
-        except Exception as e:
-            print(f"Error saat klik tabel: {e}")
-
-    def simpan(self):
-        kd = self.ui.kd_obatLineEdit.text()
-        nama = self.ui.nama_obatLineEdit.text()
-        harga = self.ui.hargaLineEdit.text()
-        stok = self.ui.stokLineEdit.text()
-        keterangan = self.ui.keteranganLineEdit.text()
-
-        if not kd or not nama:
-            QMessageBox.warning(self.ui, "Peringatan", "Kode dan Nama Obat tidak boleh kosong!")
+    def cetak_pdf(self):
+        data = self.db.ambilSemuaObat()
+        if not data:
+            QMessageBox.warning(self, "Peringatan", "Tidak ada data untuk dicetak.")
             return
 
+        path, _ = QFileDialog.getSaveFileName(self, "Simpan Laporan", "", "PDF Files (*.pdf)")
+        if path:
+            try:
+                pdf = FPDF(orientation='P', unit='mm', format='A4')
+                pdf.add_page()
+                pdf.set_font("Arial", "B", 16)
+                pdf.cell(0, 10, "LAPORAN DATA OBAT", ln=True, align='C')
+                pdf.ln(10)
+
+                pdf.set_font("Arial", "B", 10)
+                headers = ["Kode Obat", "Nama Obat", "Harga", "Stok", "Keterangan"]
+                col_widths = [30, 50, 30, 20, 60]
+
+                for i, h in enumerate(headers):
+                    pdf.cell(col_widths[i], 10, h, border=1, align='C')
+                pdf.ln()
+
+                pdf.set_font("Arial", "", 10)
+                for row in data:
+                    for i, value in enumerate(row):
+                        pdf.cell(col_widths[i], 8, str(value), border=1)
+                    pdf.ln()
+
+                pdf.output(path)
+                QMessageBox.information(self, "Sukses", "Laporan PDF Obat berhasil dibuat!")
+            except Exception as e:
+                QMessageBox.critical(self, "Error", f"Gagal cetak PDF: {str(e)}")
+
+    def simpan_obat(self):
         try:
-            self.db.simpanObat(kd, nama, harga, stok, keterangan)
-            QMessageBox.information(self.ui, "Sukses", "Data Obat berhasil disimpan!")
-            self.load_data() # Muat ulang data
-            self.clear_fields()
+            self.db.simpanObat(
+                self.kd_obatLineEdit.text(),
+                self.nama_obatLineEdit.text(),
+                self.hargaLineEdit.text(),
+                self.stokLineEdit.text(),
+                self.keteranganLineEdit.text()
+            )
+            QMessageBox.information(self, "Sukses", "Data obat berhasil disimpan!")
+            self.load_data()
+            self.clear_form()
         except Exception as e:
-            QMessageBox.critical(self.ui, "Error", f"Gagal menyimpan data: {e}")
+            QMessageBox.critical(self, "Error", str(e))
 
-    def ubah(self):
-        kd = self.ui.kd_obatLineEdit.text()
-        nama = self.ui.nama_obatLineEdit.text()
-        harga = self.ui.hargaLineEdit.text()
-        stok = self.ui.stokLineEdit.text()
-        keterangan = self.ui.keteranganLineEdit.text()
-
-        if not kd:
-            QMessageBox.warning(self.ui, "Peringatan", "Pilih data Obat yang akan diubah!")
-            return
-
+    def ubah_obat(self):
         try:
-            self.db.ubahObat(kd, nama, harga, stok, keterangan)
-            QMessageBox.information(self.ui, "Sukses", "Data Obat berhasil diubah!")
-            self.load_data() # Muat ulang data
-            self.clear_fields()
+            self.db.ubahObat(
+                self.kd_obatLineEdit.text(),
+                self.nama_obatLineEdit.text(),
+                self.hargaLineEdit.text(),
+                self.stokLineEdit.text(),
+                self.keteranganLineEdit.text()
+            )
+            QMessageBox.information(self, "Sukses", "Data obat berhasil diubah!")
+            self.load_data()
+            self.clear_form()
         except Exception as e:
-            QMessageBox.critical(self.ui, "Error", f"Gagal mengubah data: {e}")
+            QMessageBox.critical(self, "Error", str(e))
 
-    def hapus(self):
-        kd = self.ui.kd_obatLineEdit.text()
-
-        if not kd:
-            QMessageBox.warning(self.ui, "Peringatan", "Pilih data Obat yang akan dihapus!")
-            return
-
-        konfirmasi = QMessageBox.question(self.ui, 'Konfirmasi Hapus',
-                                          f"Anda yakin ingin menghapus Obat dengan Kode: {kd}?",
-                                          QMessageBox.Yes | QMessageBox.No)
-
-        if konfirmasi == QMessageBox.Yes:
+    def hapus_obat(self):
+        kd = self.kd_obatLineEdit.text()
+        confirm = QMessageBox.question(self, "Konfirmasi", f"Hapus Obat {kd}?", QMessageBox.Yes | QMessageBox.No)
+        if confirm == QMessageBox.Yes:
             try:
                 self.db.hapusObat(kd)
-                QMessageBox.information(self.ui, "Sukses", "Data Obat berhasil dihapus!")
-                self.load_data() # Muat ulang data
-                self.clear_fields()
+                QMessageBox.information(self, "Sukses", "Data berhasil dihapus!")
+                self.load_data()
+                self.clear_form()
             except Exception as e:
-                QMessageBox.critical(self.ui, "Error", f"Gagal menghapus data: {e}")
+                QMessageBox.critical(self, "Error", str(e))
 
-    def clear_fields(self):
-        self.ui.kd_obatLineEdit.clear()
-        self.ui.nama_obatLineEdit.clear()
-        self.ui.hargaLineEdit.clear()
-        self.ui.stokLineEdit.clear()
-        self.ui.keteranganLineEdit.clear()
+    def tabel_diklik(self, row, column):
+        self.kd_obatLineEdit.setText(self.tableWidget.item(row, 0).text())
+        self.nama_obatLineEdit.setText(self.tableWidget.item(row, 1).text())
+        self.hargaLineEdit.setText(self.tableWidget.item(row, 2).text())
+        self.stokLineEdit.setText(self.tableWidget.item(row, 3).text())
+        self.keteranganLineEdit.setText(self.tableWidget.item(row, 4).text())
+
+    def clear_form(self):
+        self.kd_obatLineEdit.clear()
+        self.nama_obatLineEdit.clear()
+        self.hargaLineEdit.clear()
+        self.stokLineEdit.clear()
+        self.keteranganLineEdit.clear()

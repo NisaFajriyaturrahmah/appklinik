@@ -85,13 +85,13 @@ class Ui_MainWindow(object):
 
         self.pushButton = QPushButton(self.centralwidget)
         self.pushButton.setObjectName(u"pushButton")
-        self.pushButton.setGeometry(QRect(70, 130, 56, 18))
+        self.pushButton.setGeometry(QRect(50, 160, 56, 18))
         self.pushButton_2 = QPushButton(self.centralwidget)
         self.pushButton_2.setObjectName(u"pushButton_2")
-        self.pushButton_2.setGeometry(QRect(150, 130, 56, 18))
+        self.pushButton_2.setGeometry(QRect(120, 160, 56, 18))
         self.pushButton_3 = QPushButton(self.centralwidget)
         self.pushButton_3.setObjectName(u"pushButton_3")
-        self.pushButton_3.setGeometry(QRect(230, 130, 56, 18))
+        self.pushButton_3.setGeometry(QRect(190, 160, 56, 18))
         self.tableWidget = QTableWidget(self.centralwidget)
         if (self.tableWidget.columnCount() < 5):
             self.tableWidget.setColumnCount(5)
@@ -106,7 +106,13 @@ class Ui_MainWindow(object):
         __qtablewidgetitem4 = QTableWidgetItem()
         self.tableWidget.setHorizontalHeaderItem(4, __qtablewidgetitem4)
         self.tableWidget.setObjectName(u"tableWidget")
-        self.tableWidget.setGeometry(QRect(50, 160, 256, 192))
+        self.tableWidget.setGeometry(QRect(50, 180, 256, 192))
+        self.btnCetak = QPushButton(self.centralwidget)
+        self.btnCetak.setObjectName(u"btnCetak")
+        self.btnCetak.setGeometry(QRect(250, 160, 56, 18))
+        self.lineCari = QLineEdit(self.centralwidget)
+        self.lineCari.setObjectName(u"lineCari")
+        self.lineCari.setGeometry(QRect(90, 130, 161, 20))
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QMenuBar(MainWindow)
         self.menubar.setObjectName(u"menubar")
@@ -141,5 +147,6 @@ class Ui_MainWindow(object):
         ___qtablewidgetitem3.setText(QCoreApplication.translate("MainWindow", u"stok", None));
         ___qtablewidgetitem4 = self.tableWidget.horizontalHeaderItem(4)
         ___qtablewidgetitem4.setText(QCoreApplication.translate("MainWindow", u"keterangan", None));
+        self.btnCetak.setText(QCoreApplication.translate("MainWindow", u"Cetak", None))
     # retranslateUi
 

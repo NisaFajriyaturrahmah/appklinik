@@ -110,7 +110,7 @@
     <property name="geometry">
      <rect>
       <x>50</x>
-      <y>230</y>
+      <y>260</y>
       <width>256</width>
       <height>81</height>
      </rect>
@@ -159,8 +159,8 @@
    <widget class="QPushButton" name="pushButton">
     <property name="geometry">
      <rect>
-      <x>70</x>
-      <y>200</y>
+      <x>60</x>
+      <y>230</y>
       <width>56</width>
       <height>18</height>
      </rect>
@@ -172,8 +172,8 @@
    <widget class="QPushButton" name="pushButton_2">
     <property name="geometry">
      <rect>
-      <x>150</x>
-      <y>200</y>
+      <x>120</x>
+      <y>230</y>
       <width>56</width>
       <height>18</height>
      </rect>
@@ -185,14 +185,37 @@
    <widget class="QPushButton" name="pushButton_3">
     <property name="geometry">
      <rect>
-      <x>230</x>
-      <y>200</y>
+      <x>180</x>
+      <y>230</y>
       <width>56</width>
       <height>18</height>
      </rect>
     </property>
     <property name="text">
      <string>Hapus</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="lineCari">
+    <property name="geometry">
+     <rect>
+      <x>80</x>
+      <y>200</y>
+      <width>181</width>
+      <height>20</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="btnCetak">
+    <property name="geometry">
+     <rect>
+      <x>240</x>
+      <y>230</y>
+      <width>56</width>
+      <height>18</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Cetak</string>
     </property>
    </widget>
   </widget>

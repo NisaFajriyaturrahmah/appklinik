@@ -47,6 +47,16 @@ class DB:
         cursor.close()
         return data
 
+    def cariDokter(self, keyword):
+        cursor = self.koneksi.cursor()
+        sql = """SELECT * FROM dokter
+                 WHERE kd_dokter LIKE %s OR nama_dokter LIKE %s OR spesialisasi LIKE %s"""
+        val = (f"%{keyword}%", f"%{keyword}%", f"%{keyword}%")
+        cursor.execute(sql, val)
+        data = cursor.fetchall()
+        cursor.close()
+        return data
+
     def simpanPasien(self, rm, nama, identitas, jk, gol_darah, tempat, telp, alamat):
         cursor = self.koneksi.cursor()
         sql = """INSERT INTO pasien
@@ -82,6 +92,16 @@ class DB:
         cursor = self.koneksi.cursor()
         sql = "SELECT nomor_rm, nama_pasien, no_identitas, jenis_kelamin, golongan_darah, tempat_lahir, no_telepon, alamat FROM pasien"
         cursor.execute(sql)
+        data = cursor.fetchall()
+        cursor.close()
+        return data
+
+    def cariPasien(self, keyword):
+        cursor = self.koneksi.cursor()
+        sql = """SELECT * FROM pasien
+                 WHERE nomor_rm LIKE %s OR nama_pasien LIKE %s OR alamat LIKE %s"""
+        val = (f"%{keyword}%", f"%{keyword}%", f"%{keyword}%")
+        cursor.execute(sql, val)
         data = cursor.fetchall()
         cursor.close()
         return data
@@ -122,6 +142,16 @@ class DB:
         cursor.close()
         return data
 
+    def cariPetugas(self, keyword):
+        cursor = self.koneksi.cursor()
+        sql = """SELECT * FROM petugas
+                 WHERE kd_petugas LIKE %s OR nama_petugas LIKE %s OR username LIKE %s"""
+        val = (f"%{keyword}%", f"%{keyword}%", f"%{keyword}%")
+        cursor.execute(sql, val)
+        data = cursor.fetchall()
+        cursor.close()
+        return data
+
     def simpanObat(self, kd, nama, harga, stok, keterangan):
         cursor = self.koneksi.cursor()
         sql = """INSERT INTO obat
@@ -153,6 +183,16 @@ class DB:
     def ambilSemuaObat(self):
         cursor = self.koneksi.cursor()
         cursor.execute("SELECT * FROM obat")
+        data = cursor.fetchall()
+        cursor.close()
+        return data
+
+    def cariObat(self, keyword):
+        cursor = self.koneksi.cursor()
+        sql = """SELECT * FROM obat
+                 WHERE kd_obat LIKE %s OR nama_obat LIKE %s OR keterangan LIKE %s"""
+        val = (f"%{keyword}%", f"%{keyword}%", f"%{keyword}%")
+        cursor.execute(sql, val)
         data = cursor.fetchall()
         cursor.close()
         return data
@@ -190,6 +230,23 @@ class DB:
     def ambilSemuaPendaftaran(self):
         cursor = self.koneksi.cursor()
         cursor.execute("SELECT no_daftar, nomor_rm, tanggal_daftar, tanggal_janji, jam_janji, keluhan, kd_petugas FROM pendaftaran")
+        data = cursor.fetchall()
+        cursor.close()
+        return data
+
+    def tampilPendaftaran(self):
+        cursor = self.koneksi.cursor()
+        cursor.execute("SELECT * FROM pendaftaran")
+        data = cursor.fetchall()
+        cursor.close()
+        return data
+
+    def cariPendaftaran(self, keyword):
+        cursor = self.koneksi.cursor()
+        sql = """SELECT * FROM pendaftaran
+                 WHERE no_daftar LIKE %s OR nomor_rm LIKE %s OR keluhan LIKE %s"""
+        val = (f"%{keyword}%", f"%{keyword}%", f"%{keyword}%")
+        cursor.execute(sql, val)
         data = cursor.fetchall()
         cursor.close()
         return data
